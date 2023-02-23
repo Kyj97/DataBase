@@ -16,11 +16,13 @@ public class JDBCExSecond {
             if (conn != null) {
                 System.out.println("DB 연결 완료");
             }
-            stmt = conn.createStatement();
-            ResultSet srs = stmt.executeQuery("select * from student");
-            printData(srs, "name", "id", "dept");
-            stmt.executeQuery("insert ")
-
+            stmt = conn.prepareStatement("insert into book (?, ? ,?)");
+            printData(stmt);
+            System.out.println("레코드 삽입 후");
+//           stmt.executeUpdate("insert into student (name, dept, id) values('강호동', '기계공학', '3333333');");
+           stmt.executeUpdate("insert into student(name, dept, id) values('유재석', '잠와공학', '12345467');");
+           stmt.executeUpdate("Update student set dept='체육학과' id='3333333';");
+           printData(stmt);
 
 
         } catch (ClassNotFoundException e) {
@@ -38,15 +40,13 @@ public class JDBCExSecond {
 
     }
 
-    private static void printData(ResultSet srs, String col1, String col2, String col3) throws SQLException{
+    private static void printData(Statement stmt) throws SQLException{
+        ResultSet srs = stmt.executeQuery("select * from student");
         while (srs.next()) {
-            if (!col1.equals(""))
-                System.out.print(srs.getString("name"));
-            if (!col2.equals(""))
-                System.out.print("\t|\t" + srs.getString("id"));
-            if (!col3.equals(""))
-                System.out.println("\t|\t" + srs.getString("dept"));
-            else System.out.println();
+             String name = srs.getString("name");
+            String id = srs.getString("id");
+            String dept = srs.getString("dept");
+            System.out.println(name + "\t|\t" + id + "\t|\t" + dept);
         }//while 끝
 
     }
