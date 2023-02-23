@@ -19,9 +19,7 @@ public class JDBCExSecond {
             stmt = conn.createStatement();
             ResultSet srs = stmt.executeQuery("select * from student");
             printData(srs, "name", "id", "dept");
-            System.out.println("특정 레코드만 검색");
-            ResultSet s2 = stmt.executeQuery("select * from student where name='최고봉'");
-            printData(s2, "name", "id", "dept");
+            stmt.executeQuery("insert ")
 
 
 
